@@ -20,6 +20,7 @@
          // Render goes here
 			const renderer = new THREE.WebGLRenderer();
 			renderer.setSize( window.innerWidth, window.innerHeight );
+            renderer.shadowMapEnabled = true
 			document.body.appendChild( renderer.domElement );
 
          // Objects go here V-----V
@@ -34,6 +35,7 @@
 
          // Mesh for Torus go here V-----V
             const torusKnot = new THREE.Mesh( geometry, material );
+            torusKnot.receiveShadow = true;
             torusKnot.castShadow = true;
             scene.add( torusKnot );
 
@@ -57,8 +59,8 @@
             scene.add( PointLightHelper );
 
         // Shadow properties for the light
-            light.shadow.mapSize.width = 512; 
-            light.shadow.mapSize.height = 512; 
+            light.shadow.mapSize.width = 2048; 
+            light.shadow.mapSize.height = 2048; 
             light.shadow.camera.near = 0.5; 
             light.shadow.camera.far = 500;
 
