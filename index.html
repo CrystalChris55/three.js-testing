@@ -5,41 +5,52 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r99/three.js"></script>
   </head>
   <body>
-    <div id="navbar"><span>Three js tutorial</span></div>
+    <div id="navbar"><span>Three js tutorial</span></div> 
     <script>
+      //Scene parameters
       var scene = new THREE.Scene();
       var camera = new THREE.PerspectiveCamera(75,window.innerWidth/window.innerHeight, 0.1, 1000);
       var renderer = new THREE.WebGLRenderer({antialias: true});
       renderer.setSize( window.innerWidth, window.innerHeight );
       document.body.appendChild( renderer.domElement );
 
-      var geometry = new THREE.BoxGeometry( 2, 2, 1);
-      var material = new THREE.MeshBasicMaterial( { color: 0x05675ff } );
-      var cube = new THREE.Mesh( geometry, material );
+      //Shape parameters
+      var geometry = new THREE.BoxGeometry( 2, 4, 1);
+      var material = new THREE.MeshBasicMaterial({color: 0x0000ff});
+      var material2 = new THREE.MeshBasicMaterial({color: 0x55555ff});
+      var cube = new THREE.Mesh(geometry,material);
+      var cube2 = new THREE.Mesh(geometry,material2);
+      var sphere = new THREE.SphereGeometry(0.5, 32, 32)
       scene.add( cube );
+      scene.add( cube2 );
+      scene.add( sphere );
 
-      camera.position.z = 5;
+      //Camera parameters
+      camera.position.z = 50;
+      camera.fov = 120;
+      camera.updateProjectionMatrix ();
 
+      // i forget what this is or what it does
+        var randomNumber = Math.floor(Math.random() * 0.08) + 0.05;
+        var randomNumber2 = Math.floor(Math.random() * 0.08) + 0.05;
+
+      // make the cubes booty bounce
       function animate() {
         requestAnimationFrame( animate );
-        cube.rotation.x += 0.01;
-        cube.rotation.y += 0.01;
+        cube.rotation.x += randomNumber;
+        cube.rotation.y += randomNumber;
+        cube.position.x += randomNumber;
+        cube2.rotation.x += randomNumber2;
+        cube2.rotation.y += randomNumber2;
+        cube2.position.y += randomNumber2;
+        //camera.rotation.y += randomNumber2;
         renderer.render( scene, camera );
       }
-      animate();
+      animate(cube);
+      animate(camera);
 
-/*      var geometry = new THREE.BufferGeometry();
-      var vertices = new Float32Array( [
-      -1.0, -1.0,  1.0,
-      1.0, -1.0,  1.0,
-      1.0,  1.0,  1.0,
-      1.0,  1.0,  1.0,
-      -1.0,  1.0,  1.0,
-      -1.0, -1.0,  1.0
-      ]);
-      geometry.setAttribute( 'position', new THREE.BufferAttribute( vertices, 3 ) );
-      var material = new THREE.MeshBasicMaterial( {color: 0xff0000 } );
-      var mesh = new THREE.Mesh( geometry, material );*/
+
+
     </script>
   </body>
 </html>
